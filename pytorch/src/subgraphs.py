@@ -56,9 +56,6 @@ class QZGraph(nn.Module):
             ],
             nn.Linear(hidden_dims[-1], n_z * 2),
         ])
-        for i in range(len(self.fc_layers)):
-            nn.init.normal_(self.fc_layers[i].weight, 0.1, 0.1)
-            nn.init.zeros_(self.fc_layers[i].bias)
 
     def forward(self, x, yt):
         #y = torch.matmul(qy, torch.eye(qy.size(1)))

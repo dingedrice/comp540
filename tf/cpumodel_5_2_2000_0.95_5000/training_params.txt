@@ -1,0 +1,1 @@
+k=5, n_x=531, n_z=2, n_epochs=2000, qy_dims=[128], qz_dims=[16], pz_dims=[16], px_dims=[256], r_ent=0.95, batch_size=5000, lr=5e-05

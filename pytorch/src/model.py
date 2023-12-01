@@ -146,18 +146,22 @@ class GMVAE(nn.Module):
         return ys
 
     def encode_z(self, data):
-        _, ys, zs, _, _, _, _, _, _ = self(data)
-        z = torch.zeros(zs[0].size())
-        for z_i in range(zs[0].size(1)):
-            for y_i in range(ys.size(1)):
-                z[:, z_i] += zs[y_i][:,z_i]*ys[:,y_i]
-        return z
+        self.eval()
+        with torch.no_grad():
+            _, ys, zs, _, _, _, _, _, _ = self(data)
+            z = torch.zeros(zs[0].size())
+            for z_i in range(zs[0].size(1)):
+                for y_i in range(ys.size(1)):
+                    z[:, z_i] += zs[y_i][:,z_i]*ys[:,y_i]
+            return z
             
 
     def reconstruct(self, data):
-        _, ys, _, _, _, _, _, xs, _ = self(data)
-        x = np.zeros(xs[0].size())
-        for x_i in range(xs[0].size(1)):
-            for y_i in range(ys.size(1)):
-                x[:, x_i] += xs[y_i][:,x_i]*ys[:,y_i]
-        return x
+        self.eval()
+        with torch.no_grad():
+            _, ys, _, _, _, _, _, xs, _ = self(data)
+            x = np.zeros(xs[0].size())
+            for x_i in range(xs[0].size(1)):
+                for y_i in range(ys.size(1)):
+                    x[:, x_i] += xs[y_i][:,x_i]*ys[:,y_i]
+            return x
